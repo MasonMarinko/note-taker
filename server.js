@@ -1,59 +1,42 @@
 const express = require('express');
+const path = require('path');
 const PORT = process.env.PORT || 3001;
 const app = express();
-const { notes } = require('./develop/db/db.json');
+const { notes } = require('./db/db.json');
+const { addNote, idChecker } = require('./library/notesindex');
 
-console.log(notes)
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static('public'));
 
-function filterByQuery(query, animalsArray) {
-    let personalityTraitsArray = [];
-    let filteredResults = animalsArray;
-    if (query.personalityTraits) {
-        if (typeof query.personalityTraits === "string") {
-            personalityTraitsArray = [query.personalityTraits];
-        } else {
-            personalityTraitsArray = query.personalityTraits;
-        }
-        personalityTraitsArray.forEach(trait => {
-            filteredResults = filteredResults.filter(
-                animal => animal.personalityTraits.indexOf(trait) !== -1
-            );
-        });
-    }
-    if (query.diet) {
-        filteredResults = filteredResults.filter(animal => animal.diet === query.diet);
-    }
-    if (query.species) {
-        filteredResults = filteredResults.filter(animal => animal.species === query.species);
-    }
-    if (query.name) {
-        filteredResults = filteredResults.filter(animal => animal.name === query.name);
-    }
-    return filteredResults;
-}
-
-function findById(id, animalsArray) {
-    const result = animalsArray.filter(animal => animal.id === id)[0];
-    return result
-}
-
-app.get('/api/animals', (req, res) => {
-    let results = animals;
-    if (req.query) {
-        results = filterByQuery(req.query, results)
-    }
-    res.json(results);
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
-app.get('/api/animals/:id', (req, res) => {
-    const result = findById(req.params.id, animals);
-    if (result) {
-        res.json(result);
-    } else {
-        res.send(404)
-    }
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
 });
+
+app.get('/api/notes', (req, res) => {
+    console.log(notes)
+    res.json(notes);
+});
+
+app.post('/api/notes', (req, res) => {
+    req.body.id = notes.length.toString();
+    // console.log(newNote)
+    console.log(notes)
+    const newNote = addNote(req.body, notes);
+
+    res.json(newNote)
+});
+
+app.delete('/api/notes/:id', (req, res) => {
+    noteId = req.params.id;
+    idChecker(noteId, notes);
+    res.json({ message: 'success', data: req.body})
+})
 
 app.listen(PORT, () => {
-    console.log(`API server now on port ${PORT}!`);
+    console.log(`Server running on port ${PORT}`);
 });
