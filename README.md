@@ -18,22 +18,25 @@ Note taking app that allows you to put a title and description of a task. After 
 ## Usage (After Installation)
 
 ![image](./images/home-page.png)
-1) Make sure that you are currently in the correct file location before starting.
+1) User is greeted with a simple home page that has a button saying "Get Started". Once the button is selected they are redirected.
 
 ![image](./images/notes-page.png)
-2) Start program by typing "node index", you will then be greated with a series of questions.
+2) Once the "Get Started" button is selected they are taken to the "notes" home page. The user can type in a "Note Title" as well as "Note Text" below that. There is also a button in the corner that allows the user to restart their note if there is a mistake or they change their mind.
 
 ![image](./images/no-save-button.png)
-3) The console log dynamically is shown to not only seperate previous date, but allow you to see what each section is for by dynamically changing. The first time through the questions it welcomes the user. After that it will then state which position/job you are creating.
+3) Once the user starts to enter information a "save" button will not appear until the user has put in both the "Note Title" as well as the "Note Text"
 
 ![image](./images/save-button.png)
-4) After completing the first set of questions the user will then select between Engineer, Intern, or that they are done. Depending on the selection the app will either continue to ask job specific questions, or it will produce the HTML from the input.
+4) This is what is looks like after the user has entered the required information. The save button appears in the upper right hand corner next to the pencil.
 
-![image](./images/completed.jpg)
-5) Once completed the user is told that the html is created and where to find it.
+![image](./images/saved-notes.png)
+5) Once the note is saved it will be conveniently saved to the column on the left side, the user will have 2 options.
 
-![image](./images/final.png)
-6) Then the user is met with their web page based on answers (Actual results will vary based on user input and amount of employees).
+![image](./images/review-save.png)
+6) If the user wants they can select a previous note and see what it says. It will appear in the main panel when selected in lighter/locked lettering so to inform the user that it cannot be edited, however if they do select the red trash can beside the note....
+
+![image](./images/after-delete.png)
+7) The item they selected will be deleted and only any other notes (or none at all if no more than 1) will remain.
 
 ## License
 
